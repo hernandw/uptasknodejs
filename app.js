@@ -9,6 +9,8 @@ app.use(require('./routes/index'));
 
 //Template engine
 app.set('view engine', 'pug');
+
+//Anadir las vistas
 app.set('views', path.join(__dirname,  './views'))
 
 //Levantar Servidor
