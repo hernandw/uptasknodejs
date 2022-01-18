@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const proyectos = require('../controller/proyectos.controllers');
 
 
-router.get('/', (req, res) => {
-    res.send('Servidor Local')
-});
+
+router.get('/', proyectos.home);
 
 module.exports = router
