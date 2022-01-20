@@ -6,11 +6,7 @@ const Project = sequelize.define('project', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    validate: {
-      isAlpha: {
-        msg: 'Will only allow letters'
-      }
-    }
+    
   },
   url: {
     type: DataTypes.STRING,

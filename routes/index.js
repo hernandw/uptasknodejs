@@ -10,4 +10,6 @@ router.get('/nuevo-proyecto', proyectos.formulario);
 
 router.post('/nuevo-proyecto', proyectos.nuevoProyecto);
 
+router.get('/:url', proyectos.proyectosPorUrl);
+
 module.exports = router

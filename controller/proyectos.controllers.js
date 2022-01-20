@@ -1,19 +1,25 @@
 const proyectos = require('../models/project')
+const slug = require('slug')
 
-exports.home = (req, res) => {
-    res.render('index', {
-        nombrePagina: 'Proyectos'
-    });
+exports.home = async (req, res) => {
+    const projects = await proyectos.findAll();
+    res.render('nuevoProyecto', {
+        nombrePagina: 'Nuevo Proyecto',
+        projects
+    })
 }
 
-exports.formulario = (req, res) => {
+exports.formulario = async (req, res) => {
+    const projects = await proyectos.findAll();
     res.render('nuevoproyecto', {
 
-        nombrePagina: 'nuevos proyectos'
+        nombrePagina: 'nuevos proyectos',
+        projects
     })
 }
 
 exports.nuevoProyecto = async (req, res) => {
+    const projects = await proyectos.findAll();
   const { name } = req.body;
 
   // Valida que el input no esté vacio
@@ -28,11 +34,13 @@ exports.nuevoProyecto = async (req, res) => {
     res.render("nuevoProyecto", {
       nombrePagina: "Nuevo Proyecto",
       errores,
+      projects
     });
   } else {
     //Inserta registro en la BBDD
     try {
-      const project = await proyectos.create({ name });
+        const url = slug(name).toLowerCase().trim()
+      const project = await proyectos.create({ name, url });
       
     } catch (error) {
       console.log("Error al guardar los datos " + error);
@@ -40,3 +48,20 @@ exports.nuevoProyecto = async (req, res) => {
     res.redirect("/");
   }
 };
+
+exports.proyectosPorUrl = async (req, res, next) =>{
+    const projects = await proyectos.findAll();
+   const proyecto = await proyectos.findOne({
+       where: {
+           url: req.params.url
+       }
+    })
+    if(!proyecto){
+        return next()
+    }
+    res.render('Tareas', {
+        nombrePagina: 'Tareas del Proyecto',
+        proyecto,
+        projects
+    })
+}
