@@ -5,7 +5,12 @@ const Project = sequelize.define('project', {
   // Model attributes are defined here
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isAlpha: {
+        msg: 'Will only allow letters'
+      }
+    }
   },
   url: {
     type: DataTypes.STRING,

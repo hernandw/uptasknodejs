@@ -33,9 +33,10 @@ exports.nuevoProyecto = async (req, res) => {
     //Inserta registro en la BBDD
     try {
       const project = await proyectos.create({ name });
+      
     } catch (error) {
-      console.log("Error al guardar los datos" + error);
-    }
+      console.log("Error al guardar los datos " + error);
+    } 
     res.redirect("/");
   }
 };
