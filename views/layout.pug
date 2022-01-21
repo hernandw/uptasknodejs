@@ -22,6 +22,6 @@ html(lang="en")
                         if(projects.length)
                             each project in projects
                                 li 
-                                    a(href=project.url)= project.name
+                                    a(href='/editar/'+ project.url)= project.name
 
             block contenido  
